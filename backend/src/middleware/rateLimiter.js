@@ -6,3 +6,11 @@ export const rateLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
+
+export const authRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  handler: () => {
+    throw new AppError("Too many attempts", 429);
+  },
+});
